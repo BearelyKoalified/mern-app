@@ -1,0 +1,24 @@
+{
+  "name": "mern-app",
+  "version": "1.0.0",
+  "description": "mern stack app",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm i --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Matthew Abercrombie",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1"
+  }
+}
