@@ -1,31 +1,37 @@
-import uuid from "uuid";
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from "../actions/types";
-import { defaultCipherList } from "constants";
+import {
+  GET_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  ITEMS_LOADING
+} from "../actions/types";
 
 const initialState = {
-  items: [
-    { id: uuid(), name: "Code More" },
-    { id: uuid(), name: "Code More Again" },
-    { id: uuid(), name: "Code More Forever" },
-    { id: uuid(), name: "Something Else" }
-  ]
+  items: [],
+  loading: false
 };
 
 export default function(state = initialState, actions) {
   switch (actions.type) {
     case GET_ITEMS:
       return {
-        ...state
+        ...state,
+        items: actions.payload,
+        loading: false
       };
     case DELETE_ITEM:
       return {
         ...state,
-        items: state.items.filter(item => item.id !== actions.payload)
+        items: state.items.filter(item => item._id !== actions.payload)
       };
     case ADD_ITEM:
       return {
         ...state,
         items: [actions.payload, ...state.items]
+      };
+    case ITEMS_LOADING:
+      return {
+        ...state,
+        loading: true
       };
     default:
       return state;
