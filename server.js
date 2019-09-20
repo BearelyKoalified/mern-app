@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 // to interact with mongodb easier
 const mongoose = require("mongoose");
+const path = require("path");
 
 // Routes
 const items = require("./routes/api/items");
@@ -23,6 +24,16 @@ mongoose
 
 // Use Routes
 app.use("/api/items", items);
+
+// Service static assets if in production
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 //be heard at either configured port such as on heroku etc or 5000
 const port = process.env.PORT || 5000;
