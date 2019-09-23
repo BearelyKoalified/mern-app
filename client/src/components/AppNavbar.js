@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Collapse,
   Container,
@@ -8,7 +8,9 @@ import {
   Nav,
   NavItem,
   NavLink
-} from "reactstrap";
+} from 'reactstrap';
+import RegisterModal from './auth/RegisterModal';
+import Logout from './auth/Logout';
 
 class AppNavbar extends Component {
   state = {
@@ -27,13 +29,14 @@ class AppNavbar extends Component {
         <Navbar color="dark" dark expand="md" className="mb-5">
           <Container>
             <NavbarBrand href="/">Todo List</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
+            <NavbarToggler onClick={this.toggle}/>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="http://github.com/bearelykoalified">
-                    Github
-                  </NavLink>
+                  <RegisterModal></RegisterModal>
+                </NavItem>
+                <NavItem>
+                  <Logout></Logout>
                 </NavItem>
               </Nav>
             </Collapse>
