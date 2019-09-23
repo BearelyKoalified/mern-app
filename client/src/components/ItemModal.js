@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Button,
   Modal,
@@ -8,14 +8,18 @@ import {
   FormGroup,
   Label,
   Input
-} from "reactstrap";
-import { connect } from "react-redux";
-import { addItem } from "../actions/itemActions";
+} from 'reactstrap';
+import { connect } from 'react-redux';
+import { addItem } from '../actions/itemActions';
+import PropTypes from 'prop-types';
 
 class ItemModal extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool
+  };
   state = {
     modal: false,
-    name: ""
+    name: ''
   };
 
   toggle = () => {
@@ -25,7 +29,7 @@ class ItemModal extends Component {
   };
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   onSubmit = e => {
@@ -45,28 +49,33 @@ class ItemModal extends Component {
   render() {
     return (
       <div>
-        <Button
-          color="dark"
-          style={{ marginBottom: "2rem" }}
-          onClick={this.toggle}
-        >
-          Add Item
-        </Button>
+        {this.props.isAuthenticated ? (
+          <Button
+            color='dark'
+            style={{marginBottom: '2rem'}}
+            onClick={this.toggle}
+          >
+            Add Item
+          </Button>
+        ) : (
+          <h4 className='mb-3 ml-4'>Please log in to manage items</h4>
+        )}
+
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Add Todo</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Add To Shopping List</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="item">Item</Label>
+                <Label for='item'>Item</Label>
                 <Input
-                  type="text"
-                  name="name"
-                  id="item"
-                  placeholder="Add todo item"
+                  type='text'
+                  name='name'
+                  id='item'
+                  placeholder='Add shopping item'
                   onChange={this.onChange}
-                ></Input>
-                <Button color="dark" style={{ marginTop: "2rem" }} block>
-                  Add todo
+                />
+                <Button color='dark' style={{marginTop: '2rem'}} block>
+                  Add Item
                 </Button>
               </FormGroup>
             </Form>
@@ -76,11 +85,13 @@ class ItemModal extends Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
-  item: state.item
+  item: state.item,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
   mapStateToProps,
-  { addItem }
+  {addItem}
 )(ItemModal);

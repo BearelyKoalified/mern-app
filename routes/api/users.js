@@ -1,16 +1,16 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 
 // Item Model
-const User = require("../../models/User");
+const User = require('../../models/User');
 
 // @route   POST api/users
 // @desc    Register new user
 // @access  Public
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   const {name, email, password} = req.body;
 
   // simple validation
@@ -36,9 +36,9 @@ router.post("/", (req, res) => {
           newUser.save()
             .then(user => {
               jwt.sign(
-                { id: user.id },
+                {id: user.id},
                 config.get('jwtSecret'),
-                { expiresIn: 3600 },
+                {expiresIn: 3600},
                 (err, token) => {
                   if (err) throw err;
                   res.json({
@@ -48,14 +48,14 @@ router.post("/", (req, res) => {
                       name: user.name,
                       email: user.email
                     }
-                  })
+                  });
                 }
-              )
-            })
-        })
-      })
+              );
+            });
+        });
+      });
 
-    })
+    });
 
 });
 

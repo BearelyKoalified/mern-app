@@ -1,17 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 
 // Item Model
-const User = require("../../models/User");
+const User = require('../../models/User');
 
 // @route   POST api/auth
 // @desc    Register new user
 // @access  Public
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   const {email, password} = req.body;
 
   // simple validation
@@ -41,17 +41,17 @@ router.post("/", (req, res) => {
                   name: user.name,
                   email: user.email
                 }
-              })
+              });
             }
-          )
-        })
-    })
+          );
+        });
+    });
 });
 
-// @route   GET api/auth/user
+// @route   GET api/auth/users
 // @desc    Get user data - validate user against token
 // @access  Private
-router.get('/user', auth, (req, res) => {
+router.get('/users', auth, (req, res) => {
   User.findById(req.user.id)
     .select('-password')
     .then(user => res.json(user));
