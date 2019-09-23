@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import AppNavbar from "./components/AppNavbar";
 import TodoListComponent from "./components/TodoListComponent";
 import ItemModal from "./components/ItemModal";
-import { Container } from "reactstrap";
+import {Container} from "reactstrap";
 
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 import store from "./store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,10 +15,10 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <AppNavbar />
+          <AppNavbar/>
           <Container>
-            <ItemModal />
-            <TodoListComponent />
+            <ItemModal/>
+            <TodoListComponent/>
           </Container>
         </div>
       </Provider>
