@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const auth = require('../../middleware/auth');
 
 // Item Model
 const Item = require("../../models/Item");
@@ -15,8 +16,8 @@ router.get("/", (req, res) => {
 
 // @route   POST api/items
 // @desc    Create An Item
-// @access  Public
-router.post("/", (req, res) => {
+// @access  Private
+router.post("/", auth, (req, res) => {
   const newItem = new Item({
     name: req.body.name
   });
