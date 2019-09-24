@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
           if (!isMatch) return res.status(400).json({msg: 'invalid credentials'});
           jwt.sign(
             {id: user.id},
-            config.get('jwtSecret'),
+            process.env.JWT_SECRET,
             {expiresIn: 3600},
             (err, token) => {
               if (err) throw err;

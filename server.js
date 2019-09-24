@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require('config');
+const aws = require('aws-sdk');
 
 const app = express();
 
@@ -8,9 +9,8 @@ const app = express();
 app.use(express.json());
 
 // DB Config
-const db = config.get('mongoURI');
+const db = process.env.DATABASE_URL;
 
-// Connect to MongoDB (saved on MLab - https://cloud.mongodb.com/v2/5d8212bed5ec13595d6fad87#clusters/connect?clusterId=Cluster0)
 mongoose
   .connect(db, {
     useNewUrlParser: true,
