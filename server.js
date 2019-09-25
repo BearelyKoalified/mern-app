@@ -1,23 +1,27 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const aws = require('aws-sdk');
-const config = require('config');
 
 const app = express();
 
 // Bodyparser Middleware
 app.use(express.json());
 
+// Local env setup
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 // DB Config
-const db = process.env.NODE_ENV === "production" ?  process.env.DATABASE_URL : config.get('DATABASE_URL');
+const db = process.env.DATABASE_URL;
 
 mongoose
-  .connect(db, {
-    useNewUrlParser: true,
-    useCreateIndex: true
-  })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+.connect(db, {
+  useNewUrlParser: true,
+  useCreateIndex: true
+})
+.then(() => console.log("MongoDB Connected..."))
+.catch(err => console.log(err));
 
 // Use Routes
 app.use("/api/items", require("./routes/api/items"));

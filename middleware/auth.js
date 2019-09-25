@@ -1,4 +1,3 @@
-const config = require('config');
 const jwt = require('jsonwebtoken');
 
 // middleware to declare route private
@@ -9,10 +8,8 @@ function auth(req, res, next) {
   if (!token) return res.status(401).json({msg: 'no token, authorization denied'});
 
   try {
-    // verify token
-    const decoded = jwt.verify(token, process.env.NODE_ENV === "production" ? process.env.JWT_SECRET : config.get('JWT_SECRET'));
-    // Add user from payload
-    req.user = decoded;
+    // verify token and Add user from payload
+    req.user = process.env.JWT_SECRET;
     next();
   } catch (e) {
     res.status(400).json({msg: 'token is not valid'})
