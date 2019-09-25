@@ -10,7 +10,7 @@ function auth(req, res, next) {
 
   try {
     // verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.NODE_ENV === "production" ? process.env.JWT_SECRET : config.get('jwtSecret'));
     // Add user from payload
     req.user = decoded;
     next();

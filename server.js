@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const config = require('config');
 const aws = require('aws-sdk');
 
 const app = express();
@@ -9,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 // DB Config
-const db = process.env.DATABASE_URL;
+const db = process.env.NODE_ENV === "production" ?  process.env.DATABASE_URL : config.get('mongo-url');
 
 mongoose
   .connect(db, {

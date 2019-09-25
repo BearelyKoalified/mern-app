@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const config = require('config');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 
@@ -30,7 +29,7 @@ router.post('/', (req, res) => {
           if (!isMatch) return res.status(400).json({msg: 'invalid credentials'});
           jwt.sign(
             {id: user.id},
-            process.env.JWT_SECRET,
+            process.env.NODE_ENV === "production" ? process.env.JWT_SECRET : config.get('jwtSecret'),
             {expiresIn: 3600},
             (err, token) => {
               if (err) throw err;
