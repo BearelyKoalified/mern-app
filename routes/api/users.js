@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
             .then(user => {
               jwt.sign(
                 {id: user.id},
-                process.env.NODE_ENV === "production" ? process.env.JWT_SECRET : config.get('jwtSecret'),
+                process.env.NODE_ENV === "production" ? process.env.JWT_SECRET : config.get('JWT_SECRET'),
                 {expiresIn: 3600},
                 (err, token) => {
                   if (err) throw err;
