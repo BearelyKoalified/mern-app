@@ -6,7 +6,7 @@ node_modules/
 .idea/
 /.pnp
 .pnp.js
-/config
+/config/default.json
 
 # testing
 /coverage
